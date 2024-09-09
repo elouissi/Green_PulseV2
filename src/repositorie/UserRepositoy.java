@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserRepositoy {
@@ -33,7 +34,7 @@ public class UserRepositoy {
         }
         return user;
     }
-    public User getUserById(int id) {
+    public Optional<User> getUserById(int id) {
         User user = null;
         try {
             String query = "SELECT * FROM users WHERE id = ?";
@@ -46,7 +47,7 @@ public class UserRepositoy {
         } catch (Exception e) {
             System.out.println("Error getting user: " + e);
         }
-        return user;
+        return Optional.ofNullable(user);
     }
 
     public User updateUser(User user) {
