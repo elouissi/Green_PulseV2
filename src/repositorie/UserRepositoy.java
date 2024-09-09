@@ -20,19 +20,18 @@ public class UserRepositoy {
         conn = Connection_DB.getInstance().Connect_to_DB("GreenPulse","GreenPulse","");
     }
 
-    public void addUser(User user){
+    public User addUser(User user) {
         try {
-            String query = "Insert into users (id,name,age) VALUES (?,?,?)";
+             String query = "INSERT INTO users (id, nom, age) VALUES (?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setInt(1,user.getId());
-            pstmt.setString(2,user.getName());
-            pstmt.setInt(3,user.getAge());
+            pstmt.setInt(1, user.getId());
+            pstmt.setString(2, user.getName());
+            pstmt.setInt(3, user.getAge());
             pstmt.executeUpdate();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        return user;
     }
     public User getUserById(int id) {
         User user = null;
@@ -50,31 +49,51 @@ public class UserRepositoy {
         return user;
     }
 
-    // UPDATE: Mettre à jour un utilisateur
-    public void updateUser(User user) {
+    public User updateUser(User user) {
+        User updatedUser = null;
         try {
-            String query = "UPDATE users SET nom = ?, age = ? WHERE id = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, user.getName());
-            pstmt.setInt(2, user.getAge());
-            pstmt.setInt(3, user.getId());
-            pstmt.executeUpdate();
+             String updateQuery = "UPDATE users SET nom = ?, age = ? WHERE id = ?";
+            PreparedStatement updatePstmt = conn.prepareStatement(updateQuery);
+            updatePstmt.setString(1, user.getName());
+            updatePstmt.setInt(2, user.getAge());
+            updatePstmt.setInt(3, user.getId());
+            updatePstmt.executeUpdate();
+            String selectQuery = "SELECT * FROM users WHERE id = ?";
+            PreparedStatement selectPstmt = conn.prepareStatement(selectQuery);
+            selectPstmt.setInt(1, user.getId());
+            ResultSet rs = selectPstmt.executeQuery();
+
+            if (rs.next()) {
+                updatedUser = new User(rs.getInt("id"), rs.getString("nom"), rs.getInt("age"));
+            }
         } catch (Exception e) {
             System.out.println("Error updating user: " + e);
         }
+        return updatedUser;
     }
 
-    // DELETE: Supprimer un utilisateur
-    public void deleteUser(int id) {
+     public User deleteUser(int id) {
+        User user = null;
         try {
-            String query = "DELETE FROM users WHERE id = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
+             String selectQuery = "SELECT * FROM users WHERE id = ?";
+            PreparedStatement selectPstmt = conn.prepareStatement(selectQuery);
+            selectPstmt.setInt(1, id);
+            ResultSet rs = selectPstmt.executeQuery();
+
+            if (rs.next()) {
+                user = new User(rs.getInt("id"), rs.getString("nom"), rs.getInt("age"));
+            }
+
+             String deleteQuery = "DELETE FROM users WHERE id = ?";
+            PreparedStatement deletePstmt = conn.prepareStatement(deleteQuery);
+            deletePstmt.setInt(1, id);
+            deletePstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error deleting user: " + e);
         }
+        return user;
     }
+
 
      public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();

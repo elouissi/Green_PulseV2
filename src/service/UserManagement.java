@@ -37,7 +37,7 @@ public class UserManagement {
         int age = scanner.nextInt();
         scanner.nextLine();
 
-        User Newuser = new User(id, nameUser, age);
+        User Newuser = new User( nameUser, age);
         //users.put(id, user);
         userRepositoy.addUser(Newuser);
 
@@ -61,7 +61,7 @@ public class UserManagement {
 
 
         if (users.containsKey(updatedId)) {
-            User Newuser = new User(updatedId, newName, newAge);
+            User Newuser = new User( newName, newAge);
             users.put(updatedId, Newuser);
 
             System.out.println("l'utilisateur rst bien modifier");
