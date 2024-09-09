@@ -1,7 +1,7 @@
  import config.Connection_DB;
  import domain.User;
-import service.ConsomationManagement;
-import service.UserManagement;
+import service.ConsomationService;
+import service.UserService;
 
  import java.sql.Connection;
  import java.util.*;
@@ -19,8 +19,8 @@ public class Main {
         HashMap<Integer, User> users = new HashMap<>();
 
         // Passer users et scanner aux classes de gestion
-        UserManagement management = new UserManagement(users, scanner);
-        ConsomationManagement consomationM = new ConsomationManagement(users, scanner);
+        UserService management = new UserService(users, scanner);
+        ConsomationService consomationM = new ConsomationService(users, scanner);
 
         long consommationParJour = 0;
         double consommationTotale = 0;
@@ -34,7 +34,8 @@ public class Main {
             System.out.println("5 - entrer la consomation d'un utilisateur ");
             System.out.println("6 - afficher la consomation d'un utilisateur");
             System.out.println("7- générer le rapport d'un utilisateur");
-            System.out.println("8 - Exit");
+            System.out.println("8 - afficher par id");
+            System.out.println("9 - Exit");
 
             choix = scanner.nextInt();
             scanner.nextLine();
@@ -49,7 +50,6 @@ public class Main {
 
 
                 case 2:
-
                     management.UpdateUser();
                     break;
 
@@ -61,7 +61,7 @@ public class Main {
 
                 case 4:
 
-                    management.Showing();
+                    management.showAllUsers();
 
                     break;
 
@@ -80,6 +80,10 @@ public class Main {
 
                 case 8:
 
+                    management.afficherParId();
+                    break;
+                case 9:
+
                     System.out.println("Au revoir!");
                     break;
 
@@ -87,7 +91,7 @@ public class Main {
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
 
-        } while (choix != 8) ;
+        } while (choix != 9) ;
 
     }
 

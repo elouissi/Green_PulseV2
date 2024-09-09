@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class ConsomationManagement {
+public class ConsomationService {
 
 
     long consommationParJour = 0;
@@ -22,7 +22,7 @@ public class ConsomationManagement {
     private HashMap<Integer, User> users;
     private Scanner scanner;
 
-    public ConsomationManagement(HashMap<Integer, User> users, Scanner scanner) {
+    public ConsomationService(HashMap<Integer, User> users, Scanner scanner) {
         this.users = users;
         this.scanner = scanner;
     }
