@@ -16,8 +16,14 @@ public class Transport extends Consomation  {
         this.distanceParcourue = distanceParcourue;
         this.typeDeVehicule = typeDeVehicule;
     }
+    public Transport(LocalDate startDate, LocalDate endDate, float value, TypeConsomation typeConsomation, double distanceParcourue, TypeDeVehicule typeDeVehicule) {
+        super(startDate, endDate, value, typeConsomation);
+        this.distanceParcourue = distanceParcourue;
+        this.typeDeVehicule = typeDeVehicule;
+    }
 
-    public double getDistanceParcourue() {
+
+        public double getDistanceParcourue() {
         return distanceParcourue;
     }
 

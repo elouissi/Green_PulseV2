@@ -19,6 +19,12 @@ public abstract class Consomation {
         this.id = id;
         this.typeConsomation =typeConsomation;
     }
+    public Consomation(LocalDate startDate, LocalDate endDate, float value,TypeConsomation typeConsomation ) {
+        StartDate = startDate;
+        EndDate = endDate;
+        this.valueOfCarbon = value;
+         this.typeConsomation =typeConsomation;
+    }
 
     public Consomation() {
     }

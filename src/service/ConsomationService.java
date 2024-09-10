@@ -1,17 +1,17 @@
 package service;
 
 import Util.Util;
-import domain.Consomation;
-import domain.User;
+import domain.*;
+import domain.Enum.*;
+import domain.Enum.TypeDeVehicule;
+import repositorie.ConsomationRepository;
+import repositorie.UserRepositoy;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsomationService {
 
@@ -21,6 +21,10 @@ public class ConsomationService {
     long difference =0;
     private HashMap<Integer, User> users;
     private Scanner scanner;
+     TypeEnergie type_I;
+    TypeAliment type_A;
+    UserRepositoy userRepositoy = new UserRepositoy();
+    ConsomationRepository consomationRepository = new ConsomationRepository();
 
     public ConsomationService(HashMap<Integer, User> users, Scanner scanner) {
         this.users = users;
@@ -31,11 +35,26 @@ public class ConsomationService {
         int selectId = scanner.nextInt();
         scanner.nextLine();
 
-
-        if (users.containsKey(selectId)) {
-            System.out.println("enter l'id du consommtion :");
-            int ConsomationId = scanner.nextInt();
+        String type = null;
+        if (userRepositoy.checkUserExists(selectId)) {
+            //System.out.println("enter l'id du consommtion :");
+            System.out.println("choisir le type de consomation : ");
+            System.out.println("1-alimentation");
+            System.out.println("2-logement ");
+            System.out.println("3-transport");
+            int choixType = scanner.nextInt();
+             
             scanner.nextLine();
+            if (choixType==1){
+                 type="alimentation";
+
+            } else if (choixType==2) {
+                type="logement";
+            }else if (choixType==3){
+                type="transport";
+            }else {
+                System.out.println("choix invalid");
+            }
             System.out.println("Entrez la valeur du carbone en kg --|>");
             int valeur = scanner.nextInt();
             scanner.nextLine();
@@ -61,9 +80,10 @@ public class ConsomationService {
                     System.out.println("Nombre de jours de différence: " + difference);
                     System.out.println("Consommation par jour : " + consommationParJour);
                     List<LocalDate> listDate = new ArrayList<>();
-                    User utilisateur = users.get(selectId);
+                    //Optional<User> utilisateur = userRepositoy.getUserById(selectId);
+                    List<Consomation> consomations = consomationRepository.getCOnsomtionOfUser(selectId);
 
-                    for (Consomation co : utilisateur.getConsommations()) {
+                    for (Consomation co : consomations) {
                         for (LocalDate date = co.getStartDate(); !date.isAfter(co.getEndDate()) ;date =  date.plusDays(1)){
                             listDate.add(date);
                         }
@@ -71,6 +91,67 @@ public class ConsomationService {
                     if(Util.verifydates(startDate,endDate, listDate )){
                        // Consomation consomation = new Consomation(ConsomationId,startDate, endDate, valeur);
                         //utilisateur.AddCarbon(consomation);
+                        if (type.equals("transport")) {
+                            System.out.println("entrer la distance parcourue");
+                            double distanceParcourue = scanner.nextDouble();
+                            scanner.nextLine();
+                            System.out.println("entrer le type de véhicule");
+                            System.out.println("1-train");
+                            System.out.println("2-voiture");
+                            String typeDeVehicule = scanner.nextLine();
+                            TypeDeVehicule type_V = null; // Initialiser la variable
+
+                            if (typeDeVehicule.equals("1")) {
+                                type_V = TypeDeVehicule.Train;
+                            } else if (typeDeVehicule.equals("2")) {
+                                type_V = TypeDeVehicule.Voiture;
+                            } else {
+                                System.out.println("Type de véhicule non valide.");
+                            }
+
+                            if (type_V != null) {
+                                Transport transport = new Transport(startDate, endDate, valeur, TypeConsomation.transport, distanceParcourue, type_V);
+                                consomationRepository.AddConsomtion(transport, selectId, type);
+                                System.out.println("La consommation de transport a bien été ajoutée.");
+                            }
+                        } else if (type=="logement") {
+                            System.out.println("entrer la consommationEnergie");
+                            double consommationEnergie =scanner.nextInt();
+                            scanner.nextLine();
+                            System.out.println("entrer le type de Energie");
+                            System.out.println("1-Electricité");
+                            System.out.println("2-Gaz");
+                            String typeEnergie = scanner.nextLine();
+                            if(typeEnergie == "1"){
+                                TypeEnergie type_I = TypeEnergie.Electricité;
+                            } else if (typeEnergie == "2") {
+                                TypeEnergie type_I = TypeEnergie.Gaz;
+                            }
+                            Logement logement = new Logement(startDate,endDate,valeur, TypeConsomation.logement,consommationEnergie,type_I);
+                            consomationRepository.AddConsomtion(logement,selectId,type);
+                            System.out.println("la consomation de logement est bien ajouté");
+                            
+                        } else if (type=="alimentation") {
+                            System.out.println("entrer la poids");
+                            double poids =scanner.nextInt();
+                            scanner.nextLine();
+                            System.out.println("entrer le type de Aliment");
+                            System.out.println("1-Viande");
+                            System.out.println("2-Légume");
+                            String typeAliment = scanner.nextLine();
+                            if(typeAliment == "1"){
+                                TypeAliment type_A = TypeAliment.Viande;
+                            } else if (typeAliment == "2") {
+                                TypeAliment type_A = TypeAliment.Légume;
+                            }
+                            System.out.println(type_A);
+                            Alimentation alimentation = new Alimentation(startDate,endDate,valeur, TypeConsomation.logement,poids,type_A);
+                            consomationRepository.AddConsomtion(alimentation,selectId,type);
+                            System.out.println("la consomation d'alimentation est bien ajouté");
+
+                        }else {
+                            
+                        }
                         System.out.println("La consommation de l'utilisateur a bien été ajoutée.");
 
                     }else {
@@ -172,5 +253,9 @@ public class ConsomationService {
                 }
         }
     }
+    /*consomations.stream()
+            .flatMap(co -> co.getStartDate().datesUntil(co.getEndDate().plusDays(1)))
+            .forEach(listDate::add); // Ajouter chaque date à listDate*/
+
 
 }

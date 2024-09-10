@@ -36,7 +36,6 @@ public class Main {
             System.out.println("7- générer le rapport d'un utilisateur");
             System.out.println("8 - afficher par id");
             System.out.println("9 - Exit");
-
             choix = scanner.nextInt();
             scanner.nextLine();
 

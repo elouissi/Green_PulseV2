@@ -1,6 +1,7 @@
 package domain;
 
 import domain.Enum.TypeConsomation;
+import domain.Enum.TypeDeVehicule;
 import domain.Enum.TypeEnergie;
 
 import java.time.LocalDate;
@@ -14,6 +15,12 @@ public class Logement extends Consomation {
         this.consommationEnergie = consommationEnergie;
         this.typeEnergie = typeEnergie;
     }
+    public Logement(LocalDate startDate, LocalDate endDate, float value, TypeConsomation typeConsomation, double consommationEnergie, TypeEnergie TypeEnergie) {
+        super(startDate, endDate, value, typeConsomation);
+        this.consommationEnergie = consommationEnergie;
+        this.typeEnergie = TypeEnergie;
+    }
+
 
     public double getConsommationEnergie() {
         return consommationEnergie;

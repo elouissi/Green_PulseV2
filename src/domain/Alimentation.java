@@ -15,6 +15,12 @@ public class Alimentation extends Consomation {
         this.poids = poids;
         this.typeAliment = typeAliment;
     }
+    public Alimentation(LocalDate startDate, LocalDate endDate, float value, TypeConsomation typeConsomation,double poids, TypeAliment typeAliment) {
+        super(startDate, endDate, value, typeConsomation);
+        this.poids = poids;
+        this.typeAliment = typeAliment;
+    }
+
 
 
 
