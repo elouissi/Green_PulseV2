@@ -22,8 +22,10 @@ public class Transport extends Consomation  {
         this.typeDeVehicule = typeDeVehicule;
     }
 
+    public Transport() {
+    }
 
-        public double getDistanceParcourue() {
+    public double getDistanceParcourue() {
         return distanceParcourue;
     }
 
@@ -49,5 +51,17 @@ public class Transport extends Consomation  {
             return super.valueOfCarbon*impactConsomation*this.distanceParcourue ;
 
 
+    }
+    @Override
+    public String toString() {
+        return "Transport{" +
+                "distanceParcourue=" + distanceParcourue +
+                ", typeDeVehicule=" + typeDeVehicule +
+                ", id=" + id +
+                ", StartDate=" + StartDate +
+                ", EndDate=" + EndDate +
+                ", valueOfCarbon=" + valueOfCarbon +
+                ", typeConsomation=" + typeConsomation +
+                '}';
     }
 }

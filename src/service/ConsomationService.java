@@ -193,18 +193,27 @@ public class ConsomationService {
 //
 //    }
 
-    public void getAllConsomtion(){
+    public void getAllConsomtion() {
 
-        List<Consomation> consommations = consomationRepository.getAll();
+         List<Consomation> consommations = consomationRepository.getAll();
 
+        System.out.println("Voici toutes les consommations :");
 
+         for (Consomation consomation : consommations) {
 
-        System.out.println("Consommations de l'utilisateur :");
-        for (Consomation consomation : consommations) {
-            System.out.println(consomation.toString());
+             if (consomation instanceof Alimentation) {
+                Alimentation alimentation = (Alimentation) consomation;
+                System.out.println(alimentation.toString());
+            }
+            else if (consomation instanceof Logement) {
+                Logement logement = (Logement) consomation;
+                System.out.println(logement.toString());
+            }
+            else if (consomation instanceof Transport) {
+                Transport transport = (Transport) consomation;
+                System.out.println(transport.toString());
+            }
         }
-
-
     }
 
     public void Rapport(){

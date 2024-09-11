@@ -10,6 +10,7 @@ public class Logement extends Consomation {
     public double consommationEnergie;
     public TypeEnergie typeEnergie;
 
+
     public Logement(int id, LocalDate startDate, LocalDate endDate, float value, TypeConsomation typeConsomation, double consommationEnergie, TypeEnergie typeEnergie) {
         super(id, startDate, endDate, value, typeConsomation);
         this.consommationEnergie = consommationEnergie;
@@ -21,6 +22,8 @@ public class Logement extends Consomation {
         this.typeEnergie = TypeEnergie;
     }
 
+    public Logement() {
+    }
 
     public double getConsommationEnergie() {
         return consommationEnergie;
@@ -48,4 +51,17 @@ public class Logement extends Consomation {
 
         return impactConsomation*super.valueOfCarbon*this.consommationEnergie;
     }
+    @Override
+    public String toString() {
+        return "Logement{" +
+                "consommationEnergie=" + consommationEnergie +
+                ", typeEnergie=" + typeEnergie +
+                ", id=" + id +
+                ", StartDate=" + StartDate +
+                ", EndDate=" + EndDate +
+                ", valueOfCarbon=" + valueOfCarbon +
+                ", typeConsomation=" + typeConsomation +
+                '}';
+    }
+
 }

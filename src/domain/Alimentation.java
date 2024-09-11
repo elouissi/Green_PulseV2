@@ -21,8 +21,8 @@ public class Alimentation extends Consomation {
         this.typeAliment = typeAliment;
     }
 
-
-
+    public Alimentation() {
+    }
 
     public double getPoids() {
         return poids;
@@ -49,5 +49,18 @@ public class Alimentation extends Consomation {
         else impactConsomation = 5.0;
 
         return super.valueOfCarbon*this.poids*impactConsomation;
+    }
+
+    @Override
+    public String toString() {
+        return "Alimentation{" +
+                "poids=" + poids +
+                ", typeAliment=" + typeAliment +
+                ", id=" + id +
+                ", StartDate=" + StartDate +
+                ", EndDate=" + EndDate +
+                ", valueOfCarbon=" + valueOfCarbon +
+                ", typeConsomation=" + typeConsomation +
+                '}';
     }
 }
