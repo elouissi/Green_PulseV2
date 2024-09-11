@@ -69,11 +69,13 @@ public class Main {
                     break;
 
                 case 6:
-                    consomationM.ShowConsommation();
+                    //consomationM.ShowConsommation();
+                    consomationM.getAllConsomtion();
                     break;
 
                 case 7:
-                    consomationM.Rapport();
+                    //consomationM.Rapport();
+                    consomationM.getUsersWithConomations();
 
                     break;
 

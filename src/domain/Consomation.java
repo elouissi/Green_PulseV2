@@ -80,6 +80,7 @@ public abstract class Consomation {
                 " startDate=" + StartDate +
                 ", endDate=" + EndDate +
                 ", valeur=" + valueOfCarbon + "kg" +
+                ",type"+typeConsomation+
                 '}';
     }
     public abstract double  calculerImpact();

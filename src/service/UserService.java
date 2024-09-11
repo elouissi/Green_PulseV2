@@ -137,7 +137,7 @@ public class UserService {
 
     }
 
-    public List<User> filterByConsuption(int nombre){
+    public List<User> filterByConsuption(int nombre ){
 
         return this.findAll()
                 .stream()
