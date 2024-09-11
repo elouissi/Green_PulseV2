@@ -44,7 +44,7 @@ public class Logement extends Consomation {
     public double calculerImpact(){
         double impactConsomation = 0;
 
-        if (this.typeEnergie == TypeEnergie.valueOf("electricité")) impactConsomation = 1.5;
+        if (this.typeEnergie == TypeEnergie.valueOf("Electricité")) impactConsomation = 1.5;
 
         else impactConsomation = 2.0;
 

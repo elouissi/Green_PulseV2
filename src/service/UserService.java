@@ -2,12 +2,10 @@ package service;
 
 import domain.Consomation;
 import domain.User;
+import repositorie.ConsomationRepository;
 import repositorie.UserRepositoy;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserService {
@@ -128,24 +126,31 @@ public class UserService {
 
         return userRepositoy.getAllUsers();
     }
-    public double consomationTotal(User user){
-        return user
-                .getConsommations()
+    public double consomationTotal(User user) {
+        ConsomationRepository conR = new ConsomationRepository();
+        List<Consomation> consomationList = conR.getCOnsomtionOfUser(user.getId());
+        double totalImpact = consomationList
                 .stream()
                 .mapToDouble(Consomation::calculerImpact)
                 .sum();
-
+        System.out.println("Total impact pour l'utilisateur " + user.getId() + ": " + totalImpact);
+        return totalImpact;
     }
 
-    public List<User> filterByConsuption(int nombre ){
 
-        return this.findAll()
+    public void filterByConsuption() {
+        List<User> allUsers = this.findAll();
+        List<User> filteredUsers = allUsers
                 .stream()
-                .filter(e -> consomationTotal(e) > nombre)
+                .filter(e -> consomationTotal(e) > 310000)
                 .collect(Collectors.toList());
-
+        System.out.println("Utilisateurs avec une consommation totale > 1 :");
+        for (User user : filteredUsers) {
+            System.out.println(user);
+        }
 
     }
+
 
 }
 

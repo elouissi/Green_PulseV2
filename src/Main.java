@@ -35,7 +35,8 @@ public class Main {
             System.out.println("6 - afficher la consomation d'un utilisateur");
             System.out.println("7- générer le rapport d'un utilisateur");
             System.out.println("8 - afficher par id");
-            System.out.println("9 - Exit");
+            System.out.println("9 - filtrage de consomation avec l'impact");
+            System.out.println("10 - Exit");
             choix = scanner.nextInt();
             scanner.nextLine();
 
@@ -84,6 +85,9 @@ public class Main {
                     management.afficherParId();
                     break;
                 case 9:
+                    management.filterByConsuption();
+                    break;
+                case 10:
 
                     System.out.println("Au revoir!");
                     break;
@@ -92,7 +96,7 @@ public class Main {
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
 
-        } while (choix != 9) ;
+        } while (choix != 10) ;
 
     }
 

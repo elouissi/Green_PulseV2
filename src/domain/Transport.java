@@ -44,7 +44,7 @@ public class Transport extends Consomation  {
     public double calculerImpact(){
         double impactConsomation = 0;
 
-        if (this.typeDeVehicule == TypeDeVehicule.valueOf("voiture")) impactConsomation = 0.5;
+        if (this.typeDeVehicule == TypeDeVehicule.valueOf("Voiture")) impactConsomation = 0.5;
 
             else impactConsomation = 0.1;
 

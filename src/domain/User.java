@@ -1,5 +1,7 @@
 package domain;
 
+import repositorie.ConsomationRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
