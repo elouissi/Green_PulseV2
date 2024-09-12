@@ -38,7 +38,8 @@ public class Main {
             System.out.println("9 - filtrage de consomation avec l'impact");
             System.out.println("10 - afficher average d'un utilisateur");
             System.out.println("11 - filtrage des utilisateurs par inactivite");
-            System.out.println("12 - Exit");
+            System.out.println("12 - triage des utilisateurs en fonction de consomation total");
+            System.out.println("13 - Exit");
             choix = scanner.nextInt();
             scanner.nextLine();
 
@@ -96,6 +97,9 @@ public class Main {
                     management.filterByInactivite();
                     break;
                 case 12:
+                    management.classementByTotal();
+                    break;
+                case 13:
 
                     System.out.println("Au revoir!");
                     break;
@@ -104,7 +108,7 @@ public class Main {
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
 
-        } while (choix != 12) ;
+        } while (choix != 13) ;
 
     }
 

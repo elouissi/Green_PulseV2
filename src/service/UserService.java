@@ -126,7 +126,6 @@ public class UserService {
         }
     }
 
-
     public List<User> findAll(){
 
         return userRepositoy.getAllUsers();
@@ -142,7 +141,15 @@ public class UserService {
         return totalImpact;
     }
 
-
+    public double ClassementConsomation(User user) {
+        ConsomationRepository conR = new ConsomationRepository();
+        List<Consomation> consomationList = conR.getCOnsomtionOfUser(user.getId());
+        double totalConsomation = consomationList
+                .stream()
+                .mapToDouble(Consomation::getValueOfCarbon)
+                .sum();
+         return totalConsomation;
+    }
     public void filterByConsuption() {
         List<User> allUsers = this.findAll();
         List<User> filteredUsers = allUsers
@@ -184,6 +191,18 @@ public class UserService {
                 .collect(Collectors.toList());
         System.out.println(users);
     }
+    public void classementByTotal() {
+        List<User> ClassementUsers = findAll()
+                .stream()
+                .sorted((o1, o2) -> Double.compare(ClassementConsomation(o2), ClassementConsomation(o1)))
+                .collect(Collectors.toList());
+
+         System.out.println("Classement des utilisateurs par consommation totale de carbone :");
+        for (User user : ClassementUsers) {
+            System.out.println("Utilisateur ID: " + user.getId() + ", Consommation totale : " + ClassementConsomation(user));
+        }
+    }
+
 
 
 }
