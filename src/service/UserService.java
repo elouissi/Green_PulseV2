@@ -5,8 +5,13 @@ import domain.User;
 import repositorie.ConsomationRepository;
 import repositorie.UserRepositoy;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static Util.Util.dateListRange;
+import static Util.Util.verifydates;
 
 public class UserService {
 
@@ -149,6 +154,35 @@ public class UserService {
             System.out.println(user);
         }
 
+    }
+
+    public void filterByInactivite() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // Demander la date de début
+        System.out.println("Entrez la date de début (dd/MM/yyyy) :");
+        String inputS = scanner.nextLine();
+        LocalDate startDate = LocalDate.parse(inputS, format);
+
+        // Demander la date de fin
+        System.out.println("Entrez la date de fin (dd/MM/yyyy) :");
+        String inputE = scanner.nextLine();
+        LocalDate endDate = LocalDate.parse(inputE, format);
+
+        ConsomationRepository conR = new ConsomationRepository();
+
+         List<User> users = findAll().stream()
+                .filter(user -> {
+                    List<Consomation> consomations = conR.getCOnsomtionOfUser(user.getId());
+
+                     List<LocalDate> consomationDates = consomations.stream()
+                            .flatMap(consomation -> dateListRange(consomation.getStartDate(), consomation.getEndDate()).stream())
+                            .collect(Collectors.toList());
+
+                     return verifydates(startDate, endDate, consomationDates);
+                })
+                .collect(Collectors.toList());
+        System.out.println(users);
     }
 
 
