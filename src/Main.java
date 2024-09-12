@@ -36,7 +36,8 @@ public class Main {
             System.out.println("7- générer le rapport d'un utilisateur");
             System.out.println("8 - afficher par id");
             System.out.println("9 - filtrage de consomation avec l'impact");
-            System.out.println("10 - Exit");
+            System.out.println("10 - afficher average d'un utilisateur");
+            System.out.println("11 - Exit");
             choix = scanner.nextInt();
             scanner.nextLine();
 
@@ -88,6 +89,9 @@ public class Main {
                     management.filterByConsuption();
                     break;
                 case 10:
+                    consomationM.affichageAverage();
+                    break;
+                case 11:
 
                     System.out.println("Au revoir!");
                     break;
@@ -96,7 +100,7 @@ public class Main {
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
 
-        } while (choix != 10) ;
+        } while (choix != 11) ;
 
     }
 

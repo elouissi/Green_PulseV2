@@ -22,9 +22,7 @@ public class Logement extends Consomation {
         this.typeEnergie = TypeEnergie;
     }
 
-    public Logement() {
-    }
-
+    public Logement() {}
     public double getConsommationEnergie() {
         return consommationEnergie;
     }

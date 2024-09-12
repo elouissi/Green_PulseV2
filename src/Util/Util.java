@@ -1,6 +1,7 @@
 package Util;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
@@ -13,6 +14,15 @@ public class Util {
         }
         return true;
     }
+    public static List<LocalDate> dateListRange(LocalDate startDate , LocalDate endDate){
+        List<LocalDate> dateListRange = new ArrayList<>();
+        for(LocalDate dateTest = startDate; !dateTest.isAfter(endDate); dateTest=dateTest.plusDays(1)){
+            dateListRange.add(dateTest);
+
+        }
+        return dateListRange;
+    }
+
 
 
 }

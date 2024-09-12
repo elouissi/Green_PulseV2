@@ -144,7 +144,7 @@ public class UserService {
                 .stream()
                 .filter(e -> consomationTotal(e) > 310000)
                 .collect(Collectors.toList());
-        System.out.println("Utilisateurs avec une consommation totale > 1 :");
+        System.out.println("Utilisateurs avec une consommation totale > 31000 :");
         for (User user : filteredUsers) {
             System.out.println(user);
         }

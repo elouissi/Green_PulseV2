@@ -167,32 +167,6 @@ public class ConsomationService {
             System.out.println("Erreur : ID d'utilisateur non trouvé.");
         }
     }
-//    public void ShowConsommation(){
-//
-//        System.out.println("Entrez l'ID de l'utilisateur pour afficher ses détails et consommations :");
-//        int userId = scanner.nextInt();
-//        scanner.nextLine();  // Consomme la nouvelle ligne
-//
-//        if (userRepositoy.checkUserExists(userId)) {
-//            Optional<User> utilisateur = userRepositoy.getUserById(userId);
-//
-//            System.out.println(utilisateur.toString());
-//           List<Consomation> consommations = consomationRepository.getCOnsomtionOfUser(userId);
-//
-//
-//
-//            System.out.println("Consommations de l'utilisateur :");
-//            for (Consomation consomation : consommations) {
-//                System.out.println(consomation.toString());
-//            }
-//
-//
-//        } else {
-//            System.out.println("Erreur : ID d'utilisateur non trouvé.");
-//        }
-//
-//    }
-
     public void getAllConsomtion() {
 
          List<Consomation> consommations = consomationRepository.getAll();
@@ -215,7 +189,6 @@ public class ConsomationService {
             }
         }
     }
-
     public void Rapport(){
         System.out.println("--Type :  1");
         System.out.println("--Type :  2");
@@ -272,7 +245,6 @@ public class ConsomationService {
                 }
         }
     }
-
     public List<Consomation> getConsomation(User user){
 
         return consomationRepository.getCOnsomtionOfUser(user.getId());
@@ -286,6 +258,39 @@ public class ConsomationService {
           getConsomation(e).forEach(System.out::println);
       } );
     }
+    public Double averageByPeriod(int id, LocalDate start , LocalDate endDate) {
+
+        if (!start.isAfter(endDate)) {
+            List<Consomation> consumptions = consomationRepository.getCOnsomtionOfUser(id);
+            List<LocalDate> dates = Util.dateListRange(start, endDate);
+
+            return  (consumptions
+                    .stream()
+                    .filter(e -> !Util.verifydates(e.getStartDate(), e.getEndDate(), dates))
+                    .mapToDouble(Consomation::calculerImpact).sum()) / dates.size();
+        }else {
+            return 0.0;
+        }
+     }
+
+     public void affichageAverage(){
+
+         System.out.println("enter l'id d'utilisateur ");
+         int id = scanner.nextInt();
+         scanner.nextLine();
+         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+         System.out.println("Entrez la date de début (dd/MM/yyyy) :");
+         String inputS = scanner.nextLine();
+         LocalDate startDate = LocalDate.parse(inputS, format);
+
+         System.out.println("Entrez la date de fin (dd/MM/yyyy) :");
+         String inputE = scanner.nextLine();
+         LocalDate endDate = LocalDate.parse(inputE, format);
+         System.out.println(averageByPeriod(id,startDate,endDate));
+
+
+     }
+
 
 
 }
