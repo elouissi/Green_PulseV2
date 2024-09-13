@@ -9,12 +9,7 @@ import service.UserService;
 public class Main {
     public static void main(String[] args) {
         Connection_DB dbInstance = Connection_DB.getInstance();
-        Connection conn = dbInstance.Connect_to_DB("GreenPulse", "GreenPulse", "");
-
-        /*Connection_DB c = new Connection_DB();
-        c.Connect_to_DB("GreenPulse","GreenPulse","");*/
-
-        int choix;
+         int choix;
         Scanner scanner = new Scanner(System.in);
         HashMap<Integer, User> users = new HashMap<>();
 
@@ -78,7 +73,7 @@ public class Main {
                     break;
 
                 case 7:
-                    //consomationM.Rapport();
+
                     consomationM.getUsersWithConomations();
 
                     break;
@@ -100,6 +95,9 @@ public class Main {
                     management.classementByTotal();
                     break;
                 case 13:
+                    consomationM.Rapport();
+                    break;
+                case 14:
 
                     System.out.println("Au revoir!");
                     break;
@@ -108,7 +106,7 @@ public class Main {
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
 
-        } while (choix != 13) ;
+        } while (choix != 14) ;
 
     }
 

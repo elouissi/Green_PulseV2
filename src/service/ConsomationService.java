@@ -85,7 +85,7 @@ public class ConsomationService {
                             listDate.add(date);
                         }
                     }
-                    if(Util.verifydates(startDate,endDate, listDate )){
+                    if(Util.verifyDatesAndType(startDate,endDate, consomations, TypeConsomation.valueOf(type))){
                         if (type.equals("transport")) {
                             System.out.println("entrer la distance parcourue");
                             double distanceParcourue = scanner.nextDouble();
@@ -204,8 +204,7 @@ public class ConsomationService {
             case 1:
 
 
-                User utilisateur = users.get(slectedId);
-                List<Consomation> consomations = utilisateur.getConsommations();
+                 List<Consomation> consomations = consomationRepository.getCOnsomtionOfUser(slectedId);
 
 
                 for (Consomation consomation : consomations) {
@@ -226,9 +225,11 @@ public class ConsomationService {
             case 2:
 
 
-                User utilisa = users.get(slectedId);
-                if (utilisa != null ) {
-                    for (Consomation consomation : utilisa.getConsommations()) {
+                Optional<User> utilisa = userRepositoy.getUserById(slectedId);
+                List<Consomation> consomationsList = consomationRepository.getCOnsomtionOfUser(slectedId);
+                System.out.println(consomationsList);
+                if (utilisa.isPresent()) {
+                    for (Consomation consomation : consomationsList) {
                         LocalDate stDate = consomation.getStartDate();
                         LocalDate edDate = consomation.getEndDate();
 
@@ -272,7 +273,6 @@ public class ConsomationService {
             return 0.0;
         }
      }
-
      public void affichageAverage(){
 
          System.out.println("enter l'id d'utilisateur ");

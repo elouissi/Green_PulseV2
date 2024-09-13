@@ -1,5 +1,8 @@
 package Util;
 
+import domain.Consomation;
+import domain.Enum.TypeConsomation;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,7 @@ public class Util {
         }
         return true;
     }
+
     public static List<LocalDate> dateListRange(LocalDate startDate , LocalDate endDate){
         List<LocalDate> dateListRange = new ArrayList<>();
         for(LocalDate dateTest = startDate; !dateTest.isAfter(endDate); dateTest=dateTest.plusDays(1)){
@@ -23,6 +27,18 @@ public class Util {
         return dateListRange;
     }
 
+     public static boolean verifyDatesAndType(LocalDate startDate, LocalDate endDate, List<Consomation> consomations, TypeConsomation typeConsomation) {
+        for (Consomation consomation : consomations) {
+             if (consomation.getTypeConsomation().equals(typeConsomation)) {
+                 for (LocalDate date = consomation.getStartDate(); !date.isAfter(consomation.getEndDate()); date = date.plusDays(1)) {
+                    if (!startDate.isAfter(date) && !endDate.isBefore(date)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
 
 }
